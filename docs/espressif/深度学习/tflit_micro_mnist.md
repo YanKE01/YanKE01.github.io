@@ -203,3 +203,6 @@ print(array.shape)
 result_string = ",".join(map(str, array))
 print(result_string)
 ```
+
+### 项目代码
+[mnist](src/mnist.ipynb)
