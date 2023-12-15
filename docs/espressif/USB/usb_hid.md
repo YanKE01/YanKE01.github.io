@@ -1,6 +1,6 @@
 # USB_HID
 
-### 设备描述符
+### 配置描述符
 
 ```c
 TUD_CONFIG_DESCRIPTOR(1, 1, 0, TUSB_DESC_TOTAL_LEN, TUSB_DESC_CONFIG_ATT_REMOTE_WAKEUP, 100)
@@ -11,6 +11,35 @@ TUD_CONFIG_DESCRIPTOR(1, 1, 0, TUSB_DESC_TOTAL_LEN, TUSB_DESC_CONFIG_ATT_REMOTE_
 * bLength: 字节数大小为9，默认
 * wTotalLength：配置描述符+(接口描述符+HID描述符+端点描述符)*接口数。其中端点描述符的大小为7,接口描述符的大小为9,HID描述符的大小为9
 * bmAttributes： 在协议栈里面第7位一直是1,所以TU_BIT(7),此外TUSB_DESC_CONFIG_ATT_REMOTE_WAKEUP为TU_BIT(5),表示支持唤醒。TU_BIT表示把哪一个位置起来
+
+其中一个配置描述符可以有多个接口描述符，一个接口描述符又可以有多个端点描述符.
+![](src/usb_descriptor.png)
+
+所以我们看到在配置描述符后面又加了其他描述符。我们也可以参考[stm32配置](https://www.iotword.com/12954.html)
+```c
+static const uint8_t hid_configuration_descriptor[] = {
+    // Configuration number, interface count, string index, total length, attribute, power in mA
+    //配置描述符
+    TUD_CONFIG_DESCRIPTOR(1, 1, 0, TUSB_DESC_TOTAL_LEN, TUSB_DESC_CONFIG_ATT_REMOTE_WAKEUP, 100),
+
+    // Interface number, string index, boot protocol, report descriptor len, EP In address, size & polling interval
+    TUD_HID_DESCRIPTOR(0, 4, false, sizeof(hid_report_descriptor), 0x81, 16, 10),
+};
+```
+对于HID设备，接口描述符下面有一个HID名描述符和端点描述符。
+![](./src/hid_descriptor.png)
+
+这和我们展开TUD_HID_DESCRIPTOR看到的是一样的
+```h
+#define TUD_HID_DESCRIPTOR(_itfnum, _stridx, _boot_protocol, _report_desc_len, _epin, _epsize, _ep_interval) \
+  /* 接口描述符 */\
+  9, TUSB_DESC_INTERFACE, _itfnum, 0, 1, TUSB_CLASS_HID, (uint8_t)((_boot_protocol) ? (uint8_t)HID_SUBCLASS_BOOT : 0), _boot_protocol, _stridx,\
+  /* HID描述符 */\
+  9, HID_DESC_TYPE_HID, U16_TO_U8S_LE(0x0111), 0, 1, HID_DESC_TYPE_REPORT, U16_TO_U8S_LE(_report_desc_len),\
+  /* 端点描述符 */\
+  7, TUSB_DESC_ENDPOINT, _epin, TUSB_XFER_INTERRUPT, U16_TO_U8S_LE(_epsize), _ep_interval
+```
+
 
 
 ### 字符串描述符
@@ -56,8 +85,74 @@ const char *descriptor_str_kconfig[] = {
 ```
 
 
-### HID描述符
+### 接口描述符
+* bInterfaceClass：类型代码，可以参考[类型代码](https://www.usb.org/defined-class-codes)
 
+### 端点描述符
+* bEndpointAddress：端点地址。D0~D3—:端点号；D4~D6—保留；D7-传输方向，1 表示输入，0 表示输出
+0x81：10000001，端点号为1,输入
+
+* bmAttributes：端点属性，tinyusb的描述只包含了D1-D0的属性
+```c
+/// defined base on USB Specs Endpoint's bmAttributes
+typedef enum
+{
+  TUSB_XFER_CONTROL = 0 , //控制传输
+  TUSB_XFER_ISOCHRONOUS , //同步传输
+  TUSB_XFER_BULK        , //批量传输
+  TUSB_XFER_INTERRUPT     //中断传输
+}tusb_xfer_type_t;
+```
+
+
+### 报表描述符
+在tinyusb中封装了一些：TUD_HID_REPORT_DESC_KEYBOARD、TUD_HID_REPORT_DESC_MOUSE
+![](./src/hid_keyboard_report_descriptor.png)
+这和展开宏定义看到的是一样的
+```h
+#define TUD_HID_REPORT_DESC_KEYBOARD(...) \
+  HID_USAGE_PAGE ( HID_USAGE_PAGE_DESKTOP     )                    ,\
+  HID_USAGE      ( HID_USAGE_DESKTOP_KEYBOARD )                    ,\
+  HID_COLLECTION ( HID_COLLECTION_APPLICATION )                    ,\
+    /* Report ID if any */\
+    __VA_ARGS__ \
+    /* 8 bits Modifier Keys (Shift, Control, Alt) */ \
+    HID_USAGE_PAGE ( HID_USAGE_PAGE_KEYBOARD )                     ,\
+      HID_USAGE_MIN    ( 224                                    )  ,\
+      HID_USAGE_MAX    ( 231                                    )  ,\
+      HID_LOGICAL_MIN  ( 0                                      )  ,\
+      HID_LOGICAL_MAX  ( 1                                      )  ,\
+      HID_REPORT_COUNT ( 8                                      )  ,\
+      HID_REPORT_SIZE  ( 1                                      )  ,\
+      HID_INPUT        ( HID_DATA | HID_VARIABLE | HID_ABSOLUTE )  ,\
+      /* 8 bit reserved */ \
+      HID_REPORT_COUNT ( 1                                      )  ,\
+      HID_REPORT_SIZE  ( 8                                      )  ,\
+      HID_INPUT        ( HID_CONSTANT                           )  ,\
+    /* Output 5-bit LED Indicator Kana | Compose | ScrollLock | CapsLock | NumLock */ \
+    HID_USAGE_PAGE  ( HID_USAGE_PAGE_LED                   )       ,\
+      HID_USAGE_MIN    ( 1                                       ) ,\
+      HID_USAGE_MAX    ( 5                                       ) ,\
+      HID_REPORT_COUNT ( 5                                       ) ,\
+      HID_REPORT_SIZE  ( 1                                       ) ,\
+      HID_OUTPUT       ( HID_DATA | HID_VARIABLE | HID_ABSOLUTE  ) ,\
+      /* led padding */ \
+      HID_REPORT_COUNT ( 1                                       ) ,\
+      HID_REPORT_SIZE  ( 3                                       ) ,\
+      HID_OUTPUT       ( HID_CONSTANT                            ) ,\
+    /* 6-byte Keycodes */ \
+    HID_USAGE_PAGE ( HID_USAGE_PAGE_KEYBOARD )                     ,\
+      HID_USAGE_MIN    ( 0                                   )     ,\
+      HID_USAGE_MAX_N  ( 255, 2                              )     ,\
+      HID_LOGICAL_MIN  ( 0                                   )     ,\
+      HID_LOGICAL_MAX_N( 255, 2                              )     ,\
+      HID_REPORT_COUNT ( 6                                   )     ,\
+      HID_REPORT_SIZE  ( 8                                   )     ,\
+      HID_INPUT        ( HID_DATA | HID_ARRAY | HID_ABSOLUTE )     ,\
+  HID_COLLECTION_END \
+```
+
+### 基于TINYUSB实现HID Device
 
 
 ## Ref
