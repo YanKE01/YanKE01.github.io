@@ -1,6 +1,0 @@
-# SPIFFS Filesystem
-
-
-
-
-## Ref
