@@ -1,4 +1,4 @@
-# USB_HID
+# USB HID 知识学习
 
 ### 配置描述符
 
@@ -104,6 +104,8 @@ typedef enum
 }tusb_xfer_type_t;
 ```
 
+### HID描述符
+* bDescriptorType：HID描述符附属的描述符类型，有报表或者实体。报表是0x22，实体是0x23
 
 ### 报表描述符
 在tinyusb中封装了一些：TUD_HID_REPORT_DESC_KEYBOARD、TUD_HID_REPORT_DESC_MOUSE
@@ -151,8 +153,6 @@ typedef enum
       HID_INPUT        ( HID_DATA | HID_ARRAY | HID_ABSOLUTE )     ,\
   HID_COLLECTION_END \
 ```
-
-### 基于TINYUSB实现HID Device
 
 
 ## Ref
