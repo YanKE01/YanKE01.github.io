@@ -25,7 +25,7 @@ gitlab-runner run
 
 ### runner配置文件目录
 ```shell
-~/.gitlab-runner/config.toml
+sudo vim /etc/gitlab-runner/config.toml
 ```
 
 ## 常见的gitlab-runner命令
