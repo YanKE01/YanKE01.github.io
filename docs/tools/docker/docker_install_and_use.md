@@ -33,6 +33,16 @@ docker进行可以从docker hub寻找。
 docker pull espressif/idf:release-v5.2
 ```
 
+运行images
+```shell
+docker run [OPTIONS] IMAGE[:TAG|@DIGEST] [COMMAND] [ARG...]
+
+//如果我们想要交互的话
+docker run -it ubuntu /bin/bash
+```
+
+当我们通过it进入终端后，想要退出，让容器在后台执行，先按下ctrl+p,在按下ctrl+q
+
 查看已安装的docker镜像
 ```shell
 docker images
@@ -63,5 +73,5 @@ permission denied while trying to connect to the Docker daemon socket at unix://
 ```
 
 ```shell
-sudo chmod 666 /var/run/docker.sock
+sudo chmod 777 /var/run/docker.sock
 ```
