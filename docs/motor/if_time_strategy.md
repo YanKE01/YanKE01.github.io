@@ -19,12 +19,82 @@ $$
 
 当达到切换时间时，IF输出的$\theta^{*}$到观测器输出的$\hat{\theta}$在切换的时候，我们使用惯性环节去做：$\frac{1}{Tc*s+1}$
 
-假设这里我们的关系环节是 $\frac{1}{0.01*s+1}$，我们可以使用matlab进行离散化
+假设这里我们的关系环节是 $\frac{1}{0.01*s+1} (\hat{\theta}-\theta_{e}^{*})$，我们可以使用matlab进行离散化
 ```matlab
 sys=tf(1,[0.01 1])
 zh = c2d(sys,0.0001,'zoh') %我们系统是10k
 [num,den]=tfdata(zh,'v')
 ```
+如果出现tf未定义，安装control system 工具箱即可
+解释一下下面这个代码：
+```matlab
+theta_comp = 0.009950166250832*last_error + 0.990049833749168*last_comp; 
+```
+首先根据公式
+$$
+\theta_{comp} = \frac{1}{Tc*s+1} (\hat{\theta}-\theta_{e}^{*})
+$$
+在角度切换的IF，TC选为0.01
+运行如下代码在matlab中
+```matlab
+>> sys=tf(1,[0.01 1])
+zh = c2d(sys,0.0001,'zoh') %我们系统是10k
+[num,den]=tfdata(zh,'v')
+
+sys =
+ 
+      1
+  ----------
+  0.01 s + 1
+ 
+连续时间传递函数。
+模型属性
+
+zh =
+ 
+  0.00995
+  --------
+  z - 0.99
+ 
+采样时间: 0.0001 seconds
+离散时间传递函数。
+模型属性
+```
+
+我们定义$\theta_{err}=(\hat{\theta}-\theta_{e}^{*})$，根据惯性环境的公式
+$$
+\frac{\theta_{comp}}{\theta_{err}} = \frac{0.00995}{z-0.99}
+$$
+
+$$
+\frac{\theta_{comp}}{\theta_{err}} = \frac{0.00995*z^{-1}}{1-0.99* z^{-1}}
+$$
+
+$$
+\theta_{comp} - 0.99*z^{-1}*\theta_{comp} = 0.00995* z^{-1}*\theta_{err}
+$$
+
+$$
+\theta_{comp}(k) - 0.99*\theta_{comp}(k-1)=0.00995*\theta_{err}(k-1)
+$$
+
+$$
+\theta_{comp}(k)=0.00995*\theta_{err}(k-1)+0.99*\theta_{comp}
+$$
 
 在电流环节IF切换的惯性环节，要合理考虑TC，让切换在下半部
 ![](./src/if_current_switch.png)
+
+
+此外，在电流切换依旧有惯性环节
+```matlab
+Iq = 0.059411936635658*real_iq + 0.940588063364342*last_iq; %  0.01/6.125Tc
+
+```
+
+使用终端计算：
+```matlab
+>> sys=tf(1,[0.01/6.125 1])
+zh = c2d(sys,0.0001,'zoh') %我们系统是10k
+[num,den]=tfdata(zh,'v')
+```
