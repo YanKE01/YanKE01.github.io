@@ -26,7 +26,7 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin 
 
 ```
 
-### 2.docker使用
+### 2.docker基本使用
 docker进行可以从docker hub寻找。
 这里以espressif的docker镜像为例
 ```
@@ -54,7 +54,7 @@ docker ps -a
 ```
 
 关闭容器
-```shll
+```shell
 docker stop <容器ID>
 ```
 
@@ -63,6 +63,31 @@ docker stop <容器ID>
 docker start <停掉的容器ID>
 ```
 
+### 3.docker换源
+```shell
+cd /etc/docker
+vim daemon.json
+```
+添加如下内容，有可能会不存在这个json，但是没关系
+```txt
+{
+  "registry-mirrors": [
+    "https://hub-mirror.c.163.com",
+    "https://ustc-edu-cn.mirror.aliyuncs.com",
+    "https://ghcr.io",
+    "https://mirror.baidubce.com"
+  ]
+}
+```
+重启docker服务
+```shell
+service docker restart
+```
+
+执行指令就可以看到是否添加源
+```shell
+docker info
+```
 
 
 ### 其他
