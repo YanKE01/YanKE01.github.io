@@ -1,20 +1,4 @@
----
-marp: true
-theme: gaia
----
 
-<style>
-section {
-  background-image: url('./_static/background.png');
-  background-size: cover;
-  background-position: center;
-  font-size: 200%;
-}
-</style>
-
-<!-- slide: title -->
-
-<!-- _class: lead -->
 
 # 如何简单的在项目中添加 CI
 
@@ -58,7 +42,6 @@ stages:
 
 - CI 的 job 是通过 tag 指定给对应的 `runner` 运行。
   
-  ![runner](./_static/runner.png)
 
 ---
 
@@ -78,7 +61,6 @@ stages:
         - 刷入 linux 系统
         - 使用 [test-runner-management](https://gitlab.espressif.cn:6688/qa/test-runner-management) 构建 runner & docker 环境
         - 在仓库 runner 管理界面启用 runner 并添加相关 tag
-            ![runner](./_static/runner.png)
 
 ---
 
@@ -96,7 +78,6 @@ check_readme_links:
     - python ${CI_PROJECT_DIR}/tools/ci/check_readme_links.py
 ```
 
-![width:300px bg right:25%](./_static/precheck.png)
 
 ---
 
@@ -165,7 +146,6 @@ build_apps:
 
 一个任务会被拆分成两个子任务
 
-![width:1000px](./_static/matrix.png)
 
 ---
 
@@ -257,7 +237,6 @@ build_apps:
   ...
 ```
 
-![width:500px](./_static/job_artifacts.png)
 
 ---
 
@@ -464,7 +443,6 @@ deploy_docs_preview:
 * 检查代码规范
 * 自动重试失败的任务
 
-  ![width:600px](./_static/bot_rebase.png)
 
 ---
 
