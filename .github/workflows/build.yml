@@ -1,0 +1,27 @@
+name: blog sync
+
+on: 
+    push:
+        branches: ["master"]
+
+jobs:
+    sync:
+        runs-on: ubuntu-latest
+        
+        steps:
+          - name: Checkout Repository
+            uses: actions/checkout@v2
+        
+          - name: sync branch
+            env:
+                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                USE_SSH: "true"
+                
+            run: |
+                git config --global user.email "yanke@zjut.edu.cn"
+                git config --global user.name "yanke"
+                git fetch origin gh-pages:gh-pages
+                git checkout gh-pages
+                git reset --hard origin/master
+                npm install
+                npm run deploy
