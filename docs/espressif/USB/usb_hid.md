@@ -1,5 +1,28 @@
 # USB HID 知识学习
 
+
+### 设备描述符
+在tinyusb中，如果你不写设备描述符是可以的，他会默认给你一个，我们也可以自己写，设备描述符的定义可以看usb2.0中文版中5.6.1小节
+我这里以mouse的device descriptor为例
+```c
+tusb_desc_device_t hid_device_mouse_device_descriptor = {
+    .bLength = sizeof(hid_device_mouse_device_descriptor), // 设备描述符的字节大小数
+    .bDescriptorType = 0x01,                               // DEVICE
+    .bcdUSB = 0x0200,                                      // USB2.0
+    .bDeviceClass = 0x00,                                  // Class代码 0x00
+    .bDeviceSubClass = 0x00,                               // Subclass代码 0x00
+    .bDeviceProtocol = 0x00,                               // Protocol代码 0x000, class、subclass与protocol组成了base class
+    .bMaxPacketSize0 = CFG_TUD_ENDPOINT0_SIZE,             // 端点0的最大包大小
+    .idVendor = 0x303A,                                    // 厂商编号
+    .idProduct = 0x4002,                                   // 设备变换
+    .bcdDevice = 0x100,                                    // 设备出厂编号
+    .iManufacturer = 0x01,                                 // 厂商字符串索引，字符串描述符中的第一个（个数从0开始）
+    .iProduct = 0x02,                                      // 产品字符串索引，字符串描述符中的第二个
+    .iSerialNumber = 0x03,                                 // 序列号字符串索引，字符串索引中的第三个
+    .bNumConfigurations = 0x01,                            // 配置描述符就1个
+};
+```
+
 ### 配置描述符
 
 ```c
@@ -43,7 +66,7 @@ static const uint8_t hid_configuration_descriptor[] = {
 
 
 ### 字符串描述符
-
+tinyusb中的最大字符串长度描述符为8。
 hid example中的例子是
 ```c
 const char* hid_string_descriptor[5] = {
@@ -55,7 +78,7 @@ const char* hid_string_descriptor[5] = {
     "Example HID interface",  // 4: HID
 };
 ```
-为什么要这么写，可以参考esp_tinyusb源代码
+为什么要这么写，可以参考esp_tinyusb源代码，
 ```c
 const char *descriptor_str_kconfig[] = {
     // array of pointer to string descriptors
@@ -87,6 +110,9 @@ const char *descriptor_str_kconfig[] = {
 
 ### 接口描述符
 * bInterfaceClass：类型代码，可以参考[类型代码](https://www.usb.org/defined-class-codes)
+
+对于subclass和protocol而言，没有没确的说明，但是鼠标和键盘是有的
+![](./src/hid_interface_class.png)
 
 ### 端点描述符
 * bEndpointAddress：端点地址。D0~D3—:端点号；D4~D6—保留；D7-传输方向，1 表示输入，0 表示输出
