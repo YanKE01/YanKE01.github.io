@@ -111,6 +111,9 @@ const char *descriptor_str_kconfig[] = {
 ### 接口描述符
 * bInterfaceClass：类型代码，可以参考[类型代码](https://www.usb.org/defined-class-codes)
 
+对于subclass和protocol而言，没有没确的说明，但是鼠标和键盘是有的
+![](./src/hid_interface_class.png)
+
 ### 端点描述符
 * bEndpointAddress：端点地址。D0~D3—:端点号；D4~D6—保留；D7-传输方向，1 表示输入，0 表示输出
 0x81：10000001，端点号为1,输入
