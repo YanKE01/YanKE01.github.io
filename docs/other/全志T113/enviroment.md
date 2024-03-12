@@ -27,3 +27,14 @@ make  #编译linux
 mboot #编译uboot
 pack #打包
 ```
+
+## mbr failed
+
+![](./src/update_mbr_failed.png)
+
+修改分区，错误提示是boot分区
+
+![](./src/update_mbr_failed_1.png)
+
+![](./src/update_mbr_failed_2.png)
+
