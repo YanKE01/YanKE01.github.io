@@ -5,3 +5,6 @@
 
 ## 模块
 [5寸IPS屏幕，800x480，RGB，GT911驱动，华泰科技](./模块/华泰IPS5寸.pdf)
+
+## Linux
+[麻雀T113-S3 原理图](./Linux_SBC/mq_sch_v1.6.pdf)
