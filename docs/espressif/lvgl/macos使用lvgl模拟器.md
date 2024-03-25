@@ -11,7 +11,7 @@ brew install sdl2
 (base) ➜  ~ brew list sdl2
 /opt/homebrew/Cellar/sdl2/2.30.1/bin/sdl2-config
 /opt/homebrew/Cellar/sdl2/2.30.1/include/SDL2/ (78 files)
-/opt/homebrew/Cellar/sdl2/2.30.1/lib/libSDL2-2.0.0.dylib
+/opt/homebrew/Cellar/sdl2/2.30.1/lib/libSDL2-2.0.0.dylib    
 /opt/homebrew/Cellar/sdl2/2.30.1/lib/cmake/ (2 files)
 /opt/homebrew/Cellar/sdl2/2.30.1/lib/pkgconfig/sdl2.pc
 /opt/homebrew/Cellar/sdl2/2.30.1/lib/ (4 other files)
