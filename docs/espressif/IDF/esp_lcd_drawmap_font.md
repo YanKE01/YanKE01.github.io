@@ -97,6 +97,7 @@ void app_main(void)
     lcd_fullclean(lcd_panel, lcd_config, rgb565(0, 0, 0));
     for (int i = 0; i < 16; i++)
     {
+        //i代表行
         for (int j = 0; j < 2; j++)
         {
             // 第j列
