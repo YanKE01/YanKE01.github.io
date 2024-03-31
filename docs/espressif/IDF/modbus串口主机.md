@@ -2,7 +2,7 @@
 
 开发环境
 * esp idf 5.1
-* esp-modbus
+* esp-modbus 1.0.13
 
 
 ### Device parameters
