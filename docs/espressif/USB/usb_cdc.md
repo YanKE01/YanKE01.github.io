@@ -52,6 +52,29 @@ CDC类中，不具备HID描述符和报告描述符，而是功能描述符（�
 
 
 ## 描述符解析
+
+### 1.设备描述符
+```c
+const tusb_desc_device_t usb_cdc_device_descriptor = {
+    .bLength = sizeof(tusb_desc_device_t),
+    .bDescriptorType = 0X01,    // Device
+    .bcdUSB = 0x0200,           // Usb 2.0
+    .bDeviceClass = 0x02,       // Communications and CDC Control
+    .bDeviceSubClass = 0x00,    // None
+    .bDeviceProtocol = 0x00,    // None
+    .bMaxPacketSize0 = 64,      // 端点0最大包大小
+    .idVendor = 0x303A,         // 厂商编号
+    .idProduct = 0x4002,        // 产品编号
+    .bcdDevice = 0x100,         // 出厂编号
+    .iManufacturer = 0x01,      // 厂商字符串索引
+    .iProduct = 0x02,           // 产品字符串索引
+    .iSerialNumber = 0x03,      // 序列号字符串索引
+    .bNumConfigurations = 0x01, // 配置描述符数量为1
+};
+```
+
+### 2.配置描述符
+
 ### 1.联合描述符
 * bFunctionClass：参考defined class codes，这里是cdc，就是0x02
 * bFunctionSubClass：参考PSTN120的4.2章节，这里选择ACM，0x02
