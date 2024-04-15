@@ -1,4 +1,4 @@
-# 如何使用esp_lcd_panel_draw_bitmap绘制字符
+# esp_lcd绘制字符
 
 本文所使用的软硬件:
 * idf master
