@@ -10,3 +10,8 @@
 
 ## Linux
 [麻雀T113-S3 原理图](./Linux_SBC/mq_sch_v1.6.pdf)
+
+## 电机
+[阿特的电机原理图](./motor/阿特的电控原理图.pdf)
+
+[欧拉电子](./motor/STM32G4开发板原理图.pdf)
