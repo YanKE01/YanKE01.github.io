@@ -1,4 +1,4 @@
-# 环境安装
+# TINA SDK环境安装
 
 解压SDK
 ```shell
