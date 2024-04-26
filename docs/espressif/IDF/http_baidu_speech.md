@@ -104,7 +104,7 @@ esp_err_t app_spiffs_init(char *mount_path)
 
 ### 3.i2s初始化
 
-i2s的录音主要参考idf的例子：[IDF I2S录音]([1](https://github.com/espressif/esp-idf/tree/master/examples/peripherals/i2s/i2s_recorder))
+i2s的录音主要参考idf的例子：[IDF I2S录音](https://github.com/espressif/esp-idf/tree/master/examples/peripherals/i2s/i2s_recorder)
 
 ```c
 #include "hal_i2s.h"
