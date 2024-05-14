@@ -1,10 +1,17 @@
-# ISP PIPELINE
+# 01 ISP PIPELINE
 
 
 ### BAYER
 bayer格式和RGB格式的区别在于：RGB的一个像素是包含三个通道的（RGB），bayer格式的话每一个像素只有一个通道，要么就是R或者G或者B。
 
 换句话说，就是RGB是一个三通道的，Bayer是一个单通道的。
+
+在byer格式中，四个像素组成的域为一个基本单位，构成了整个图片。每个单元由两个绿色感光像素GR和GB，红色感光R，蓝色感光B组成。
+
+![](./src/bayer.png)
+
+一般BAYER格式分为GBRG、GRBG、BGGR、RGGB四种模式。如下所示：
+![](./src/bayer_formate.png)
 
 
 ## ISP PIPELINE
