@@ -1,5 +1,7 @@
 # USB HID 知识学习
 
+![](./src/hid描述符关系.png)
+
 
 ### 设备描述符
 在tinyusb中，如果你不写设备描述符是可以的，他会默认给你一个，我们也可以自己写，设备描述符的定义可以看usb2.0中文版中5.6.1小节
@@ -22,6 +24,8 @@ tusb_desc_device_t hid_device_mouse_device_descriptor = {
     .bNumConfigurations = 0x01,                            // 配置描述符就1个
 };
 ```
+
+注意，如果bDeviceClass=0x00表明在接口描述符中定义，在设备描述符中不处理。
 
 ### 配置描述符
 
@@ -113,6 +117,10 @@ const char *descriptor_str_kconfig[] = {
 
 对于subclass和protocol而言，没有没确的说明，但是鼠标和键盘是有的
 ![](./src/hid_interface_class.png)
+
+bCountryCode，注意表格里面是10进制，写的时候写16进制
+
+![](./src/hid国家码.png)
 
 ### 端点描述符
 * bEndpointAddress：端点地址。D0~D3—:端点号；D4~D6—保留；D7-传输方向，1 表示输入，0 表示输出
