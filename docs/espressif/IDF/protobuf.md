@@ -110,3 +110,22 @@ int main() {
 }
 
 ```
+
+
+## Linux环境下安装
+
+### 安装protobuf-c
+
+有一篇参考的文章：[Linux安装过程](https://blog.csdn.net/weixin_38331755/article/details/123029555?spm=1001.2101.3001.6650.1&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ECtr-1-123029555-blog-115771236.235%5Ev43%5Epc_blog_bottom_relevance_base5&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ECtr-1-123029555-blog-115771236.235%5Ev43%5Epc_blog_bottom_relevance_base5&utm_relevant_index=2)
+
+这里推荐的版本是：
+protobuf: 3.19.4
+protobuf-c: 1.3.3
+
+我们这里用的是zsh，所以配置如下：
+
+```shell
+export PATH="$PATH:/usr/local/protobuf-3.19.4/bin"
+export PKG_CONFIG_PATH=/usr/local/protobuf-3.19.4/lib/pkgconfig
+export PATH="$PATH:/usr/local/protobuf-c-1.3.3/bin"
+```
