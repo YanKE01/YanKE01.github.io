@@ -129,3 +129,10 @@ export PATH="$PATH:/usr/local/protobuf-3.19.4/bin"
 export PKG_CONFIG_PATH=/usr/local/protobuf-3.19.4/lib/pkgconfig
 export PATH="$PATH:/usr/local/protobuf-c-1.3.3/bin"
 ```
+
+
+## Python导出protobuf py
+
+```shell
+(pyqt5) PS D:\project\isp\esp-isp-tool\protobuf> protoc --python_out=. .\protocols.proto
+```
