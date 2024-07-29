@@ -147,3 +147,69 @@ freeze("/home/yanke/project/micropython-lib/python-stdlib/base64", "base64.py")
 运行测试
 
 ![](./src/base64成功界面.png)
+
+
+# Micropython RAM占用分析
+
+## micropython解释器的本身占用ram
+
+在开启PSRAM的情况下，micropython本身的RAM占用为：
+```shell
+MPY: soft reboot
+Free memory: 8320144 bytes
+Used memory: 1408 bytes
+```
+
+在未开启PSRAM的情况下，micropython本身的RAM占用为：
+```shell
+MPY: soft reboot
+Free memory: 251024 bytes
+Used memory: 1408 bytes
+```
+
+所以micropython的本身ram占用为1.4 Kb
+
+
+## py文件是否都会load到RAM中
+
+以是否import base64为测试
+
+未import前：
+```shell
+MPY: soft reboot
+Free memory: 251024 bytes
+Used memory: 1408 bytes
+```
+
+import后：
+```shell
+MPY: soft reboot
+Free memory: 249408 bytes
+Used memory: 3008 bytes
+```
+
+在未import的时候，py文件不会加载到ram中，而是存放在flash中。
+
+
+## flash占用
+
+micropython的文件系统占用分析：
+
+```python
+import ubinascii
+import os
+statvfs_fields = ['bsize','frsize','blocks','bfree','bavail','files','ffree',]
+print(dict(zip(statvfs_fields, os.statvfs('/'))))
+```
+
+```shell
+MPY: soft reboot
+{'files': 0, 'ffree': 0, 'bsize': 4096, 'bfree': 1529, 'frsize': 4096, 'bavail': 1529, 'blocks': 1536}
+```
+* 剩余空间为6MB
+* 已用空间为30KB
+
+
+之所以为6MB，是因为他的分区表给vfs分配的就是6MB
+
+![](./src/micropython的8mb分区表.png)
