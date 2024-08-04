@@ -52,3 +52,9 @@ Host github.com
  Hostname ssh.github.com
  Port 443
 ```
+
+### 3.git使得ignore重新生效：
+
+```shell
+git rm -r --cached .
+```
