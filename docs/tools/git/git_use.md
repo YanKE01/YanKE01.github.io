@@ -58,3 +58,10 @@ Host github.com
 ```shell
 git rm -r --cached .
 ```
+
+
+### 4.切换commit
+
+```shell
+gcor a2d76ad38a
+```
