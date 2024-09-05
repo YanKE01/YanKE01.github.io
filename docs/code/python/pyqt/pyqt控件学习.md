@@ -20,8 +20,15 @@ self.custom_lab_tableWidget.horizontalHeader().setSectionResizeMode(QtWidgets.QH
 self.custom_lab_tableWidget.verticalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
 ```
 
+### 2.怎么隐藏行号和列号？
 
-### 2.怎么让所有元素保持居中？
+```python
+self.bf_matrix_tableWidget.horizontalHeader().setVisible(False)
+self.bf_matrix_tableWidget.verticalHeader().setVisible(False)
+```
+
+
+### 3.怎么让所有元素保持居中？
 
 ```python
 # 让所有元素保持居中

@@ -65,3 +65,11 @@ git rm -r --cached .
 ```shell
 gcor a2d76ad38a
 ```
+
+
+### 5.怎么生成补丁
+
+如果你只想生成工作区或暂存区的改动，而不包括提交记录，可以使用 git diff：
+```shell
+git diff > my_changes.patch
+```
