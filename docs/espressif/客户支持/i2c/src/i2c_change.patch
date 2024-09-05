@@ -1,0 +1,65 @@
+diff --git a/components/driver/i2c/i2c.c b/components/driver/i2c/i2c.c
+index ce2b901551..36730d5095 100644
+--- a/components/driver/i2c/i2c.c
++++ b/components/driver/i2c/i2c.c
+@@ -236,7 +236,7 @@ static void i2c_hw_disable(i2c_port_t i2c_num)
+ {
+     I2C_ENTER_CRITICAL(&(i2c_context[i2c_num].spinlock));
+     if (i2c_context[i2c_num].hw_enabled != false) {
+-        periph_module_disable(i2c_periph_signal[i2c_num].module);
++        periph_i2c_module_disable(i2c_periph_signal[i2c_num].module);
+         i2c_context[i2c_num].hw_enabled = false;
+     }
+     I2C_EXIT_CRITICAL(&(i2c_context[i2c_num].spinlock));
+diff --git a/components/esp_hw_support/include/esp_private/periph_ctrl.h b/components/esp_hw_support/include/esp_private/periph_ctrl.h
+index a20364bd51..b1f83fd5c5 100644
+--- a/components/esp_hw_support/include/esp_private/periph_ctrl.h
++++ b/components/esp_hw_support/include/esp_private/periph_ctrl.h
+@@ -33,6 +33,8 @@ void periph_module_enable(periph_module_t periph);
+  */
+ void periph_module_disable(periph_module_t periph);
+ 
++void periph_i2c_module_disable(periph_module_t periph);
++
+ /**
+  * @brief Reset peripheral module by asserting and de-asserting the reset signal.
+  *
+diff --git a/components/esp_hw_support/periph_ctrl.c b/components/esp_hw_support/periph_ctrl.c
+index 032ce8a9ee..5fbc76d24e 100644
+--- a/components/esp_hw_support/periph_ctrl.c
++++ b/components/esp_hw_support/periph_ctrl.c
+@@ -39,6 +39,17 @@ void periph_module_disable(periph_module_t periph)
+     portEXIT_CRITICAL_SAFE(&periph_spinlock);
+ }
+ 
++void periph_i2c_module_disable(periph_module_t periph)
++{
++    assert(periph < PERIPH_MODULE_MAX);
++    portENTER_CRITICAL_SAFE(&periph_spinlock);
++    ref_counts[periph]--;
++    if (ref_counts[periph] == 0) {
++        periph_i2c_disable_clk_set_rst(periph);
++    }
++    portEXIT_CRITICAL_SAFE(&periph_spinlock);
++}
++
+ void periph_module_reset(periph_module_t periph)
+ {
+     assert(periph < PERIPH_MODULE_MAX);
+diff --git a/components/hal/esp32s3/include/hal/clk_gate_ll.h b/components/hal/esp32s3/include/hal/clk_gate_ll.h
+index d3bd68d085..3b40ca1e60 100644
+--- a/components/hal/esp32s3/include/hal/clk_gate_ll.h
++++ b/components/hal/esp32s3/include/hal/clk_gate_ll.h
+@@ -262,6 +262,12 @@ static inline void periph_ll_disable_clk_set_rst(periph_module_t periph)
+     DPORT_SET_PERI_REG_MASK(periph_ll_get_rst_en_reg(periph), periph_ll_get_rst_en_mask(periph, false));
+ }
+ 
++static inline void periph_i2c_disable_clk_set_rst(periph_module_t periph)
++{
++    DPORT_CLEAR_PERI_REG_MASK(periph_ll_get_clk_en_reg(periph), periph_ll_get_clk_en_mask(periph));
++    DPORT_CLEAR_PERI_REG_MASK(periph_ll_get_rst_en_reg(periph), periph_ll_get_rst_en_mask(periph, false));
++}
++
+ static inline void IRAM_ATTR periph_ll_wifi_bt_module_enable_clk_clear_rst(void)
+ {
+     DPORT_SET_PERI_REG_MASK(SYSTEM_WIFI_CLK_EN_REG, SYSTEM_WIFI_CLK_WIFI_BT_COMMON_M);
