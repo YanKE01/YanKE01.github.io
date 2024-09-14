@@ -73,3 +73,9 @@ gcor a2d76ad38a
 ```shell
 git diff > my_changes.patch
 ```
+
+### 6.怎么commit的时候用vscode
+
+```shell
+git config --global core.editor "code --wait"
+```
