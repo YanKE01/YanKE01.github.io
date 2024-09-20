@@ -73,3 +73,14 @@ gcor a2d76ad38a
 ```shell
 git diff > my_changes.patch
 ```
+
+### 6.怎么commit的时候用vscode
+
+```shell
+git config --global core.editor "code --wait"
+```
+
+### 7.git 怎么修改分支名字
+```shell
+git branch -m 新的分支名称
+```
