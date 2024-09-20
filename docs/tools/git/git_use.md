@@ -74,6 +74,18 @@ gcor a2d76ad38a
 git diff > my_changes.patch
 ```
 
+如果想要生成带message的补丁，参考如下做法：
+```shell
+git format-patch fromId..toId --stdout > name.patch
+git format-patch -1 --stdout > name.patch
+```
+打补丁用这个：
+```shell
+git am --signoff < name.patch
+```
+
+
+
 ### 6.怎么commit的时候用vscode
 
 ```shell
