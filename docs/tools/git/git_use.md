@@ -96,3 +96,19 @@ git config --global core.editor "code --wait"
 ```shell
 git branch -m 新的分支名称
 ```
+
+
+### 8.怎么在commit中关闭issue
+
+```shell
+fix: code block hard to read close #3
+```
+#3 代表与问题#3关联
+
+![](./src/commit_3.png)
+
+#3 也可以替换为具体的链接。
+
+```shell
+fix: code block hard to read. close https://github.com/espressif/esp-iot-solution/issues/392
+```
