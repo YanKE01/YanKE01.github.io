@@ -74,6 +74,18 @@ gcor a2d76ad38a
 git diff > my_changes.patch
 ```
 
+如果想要生成带message的补丁，参考如下做法：
+```shell
+git format-patch fromId..toId --stdout > name.patch
+git format-patch -1 --stdout > name.patch
+```
+打补丁用这个：
+```shell
+git am --signoff < name.patch
+```
+
+
+
 ### 6.怎么commit的时候用vscode
 
 ```shell
@@ -83,4 +95,20 @@ git config --global core.editor "code --wait"
 ### 7.git 怎么修改分支名字
 ```shell
 git branch -m 新的分支名称
+```
+
+
+### 8.怎么在commit中关闭issue
+
+```shell
+fix: code block hard to read close #3
+```
+#3 代表与问题#3关联
+
+![](./src/commit_3.png)
+
+#3 也可以替换为具体的链接。
+
+```shell
+fix: code block hard to read. close https://github.com/espressif/esp-iot-solution/issues/392
 ```
