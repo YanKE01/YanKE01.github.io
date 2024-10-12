@@ -129,3 +129,27 @@ static inline void adc_ll_digi_trigger_enable(void)
     APB_SARADC.ctrl2.timer_en = 1; // 使能SAR ADC定时器触发
 }
 ```
+
+如果要停止adc的时钟，应该先调用这个：
+```c
+static inline void adc_ll_digi_trigger_disable(void)
+{
+    APB_SARADC.ctrl2.timer_en = 0;
+}
+```
+
+然后再调用`adc_ll_digi_trigger_enable`。
+
+
+### 客户代码分析：
+
+初步感觉是`adc_digi_init_config_t`的问题，既然每次都是`NUM_ADC_CHANNELS`个通道上，那`adc_digi_init_config_t.conv_num_each_intr`就应该等于`(NUM_ADC_CHANNELS)*ADC_RESULT_BYTE`，但是客户写的却是`(NUM_ADC_CHANNELS+1)*ADC_RESULT_BYTE`，那adc队列返回的结果却是就会多一个，而且每次都是`channel=0和data=0`的情况，修改一下就没有复现问题了：
+
+```c
+adc_digi_init_config_t adc_dma_config = {
+    .max_store_buf_size = NUM_DMA_BUFFERS,
+    .conv_num_each_intr = (NUM_ADC_CHANNELS)*ADC_RESULT_BYTE, // Note: wait NUM_ADC_CHANNELS+1
+    .adc1_chan_mask = adc1_chan_mask,
+    .adc2_chan_mask = adc2_chan_mask,
+};
+```
