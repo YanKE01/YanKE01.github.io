@@ -112,3 +112,15 @@ fix: code block hard to read close #3
 ```shell
 fix: code block hard to read. close https://github.com/espressif/esp-iot-solution/issues/392
 ```
+
+### 9.更新分支内容
+
+基于master创建的分支，现在master更新了，怎么同步到这个分支？
+
+```shell
+git checkout master
+git pull origin master
+git checkout xxx
+git rebase master
+git rebase --continue
+```
