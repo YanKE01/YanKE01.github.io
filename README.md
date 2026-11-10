@@ -64,7 +64,7 @@ Notes:
 - Use **uppercase letters** for helper `node`s used by arrows; lowercase node letters are drawn on the diagram.
 - For diagrams with many pulses, add `config: { skin: 'narrow' }` to reduce the width.
 
-Vendor specifications and application notes can be kept in `references/` at the repository root for local reading. This folder is git-ignored and is not published, because these documents are copyrighted; link to the official URLs in articles instead.
+Vendor specifications, datasheets and application notes used as sources are kept in `references/` at the repository root and committed with the repository. They are not part of the published site. Articles cite them in their reference list; prefer linking to the official URL as well.
 
 ### USB Packet Diagrams
 

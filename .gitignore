@@ -1,6 +1,3 @@
 node_modules/
 docs/.vitepress/dist/
 docs/.vitepress/cache/
-
-# Local reference documents (vendor datasheets/specs; not redistributed)
-references/

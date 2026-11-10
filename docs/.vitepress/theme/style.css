@@ -294,3 +294,58 @@
   font-weight: 600;
   color: var(--vp-c-text-1);
 }
+
+/* ---------- USB eye template (usbeye) ---------- */
+.vp-doc .usbeye {
+  --ue-trace: #2563eb;
+  --ue-mask: #dc2626;
+  margin: 16px 0;
+  padding: 12px;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 8px;
+  background: var(--vp-c-bg-soft);
+  overflow-x: auto;
+}
+.dark .vp-doc .usbeye {
+  --ue-trace: #60a5fa;
+  --ue-mask: #f87171;
+}
+.vp-doc .usbeye svg {
+  display: block;
+  width: 100%;
+  min-width: 520px;
+  height: auto;
+  font-family: var(--vp-font-family-base);
+}
+.vp-doc .usbeye .ue-trace { fill: none; stroke: var(--ue-trace); stroke-width: 1.2; opacity: 0.45; }
+.vp-doc .usbeye .ue-out { fill: var(--ue-mask); opacity: 0.12; }
+.vp-doc .usbeye .ue-hex { fill: var(--ue-mask); fill-opacity: 0.18; stroke: var(--ue-mask); stroke-width: 1.5; }
+.vp-doc .usbeye .ue-level { stroke: var(--ue-mask); stroke-width: 1.5; }
+.vp-doc .usbeye .ue-dash { stroke-dasharray: 5 4; opacity: 0.7; }
+.vp-doc .usbeye .ue-point { fill: var(--vp-c-bg); stroke: var(--ue-mask); stroke-width: 1.5; }
+.vp-doc .usbeye .ue-plabel { fill: var(--vp-c-text-1); font-size: 12px; font-weight: 600; }
+.vp-doc .usbeye .ue-ltext { fill: var(--ue-mask); font-size: 13px; font-weight: 600; }
+.vp-doc .usbeye .ue-small { fill: var(--vp-c-text-2); font-size: 11px; }
+.vp-doc .usbeye .ue-axis { stroke: var(--vp-c-text-3); stroke-width: 1; }
+.vp-doc .usbeye .ue-grid { stroke: var(--vp-c-divider); stroke-width: 1; stroke-dasharray: 2 3; }
+.vp-doc .usbeye .ue-ltick { fill: var(--ue-mask); font-size: 11px; font-weight: 600; }
+.vp-doc .usbeye { --ue-tx: #2563eb; --ue-rx: #059669; }
+.dark .vp-doc .usbeye { --ue-tx: #60a5fa; --ue-rx: #34d399; }
+.vp-doc .usbeye .ue-board { fill: var(--vp-c-bg); stroke: var(--vp-c-divider); stroke-width: 1.5; }
+.vp-doc .usbeye .ue-chip { fill: var(--vp-c-default-soft); stroke: var(--vp-c-text-3); stroke-width: 1.2; }
+.vp-doc .usbeye .ue-conn { fill: var(--vp-c-text-3); }
+.vp-doc .usbeye .ue-conn + .ue-btext { fill: var(--vp-c-bg); }
+.vp-doc .usbeye .ue-btext { fill: var(--vp-c-text-1); font-size: 12px; font-weight: 600; }
+.vp-doc .usbeye .ue-wire { stroke: var(--vp-c-text-2); stroke-width: 1.5; }
+.vp-doc .usbeye .ue-cable { stroke: var(--vp-c-text-2); stroke-width: 3; }
+.vp-doc .usbeye .ue-tpline { stroke: var(--ue-mask); stroke-width: 1; stroke-dasharray: 4 3; }
+.vp-doc .usbeye .ue-tpdot { fill: var(--ue-mask); }
+.vp-doc .usbeye .ue-tpname { fill: var(--ue-mask); font-size: 13px; font-weight: 700; }
+.vp-doc .usbeye .ue-tx { stroke: var(--ue-tx); stroke-width: 2; }
+.vp-doc .usbeye .ue-rx { stroke: var(--ue-rx); stroke-width: 2; }
+.vp-doc .usbeye .ue-tx-head { fill: var(--ue-tx); }
+.vp-doc .usbeye .ue-rx-head { fill: var(--ue-rx); }
+.vp-doc .usbeye .ue-tx-text { fill: var(--ue-tx); font-size: 12px; font-weight: 600; }
+.vp-doc .usbeye .ue-rx-text { fill: var(--ue-rx); font-size: 12px; font-weight: 600; }
+.vp-doc .usbeye .ue-esd { fill: var(--vp-c-bg-soft); stroke: var(--vp-c-text-3); stroke-width: 1.2; }
+.vp-doc .usbeye .ue-esd + .ue-btext { font-size: 10px; }
