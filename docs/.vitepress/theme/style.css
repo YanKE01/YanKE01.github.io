@@ -1,0 +1,296 @@
+/* 主题色：想换颜色改这里即可 */
+:root {
+  --vp-c-brand-1: #6366f1;
+  --vp-c-brand-2: #4f46e5;
+  --vp-c-brand-3: #4338ca;
+  --vp-c-brand-soft: rgba(99, 102, 241, 0.14);
+
+  --vp-home-hero-name-color: transparent;
+  --vp-home-hero-name-background: linear-gradient(120deg, #6366f1 20%, #06b6d4);
+  --vp-home-hero-image-background-image: linear-gradient(-45deg, #6366f1 50%, #06b6d4 50%);
+  --vp-home-hero-image-filter: blur(56px);
+}
+.dark {
+  --vp-c-brand-1: #818cf8;
+  --vp-c-brand-2: #6366f1;
+  --vp-c-brand-3: #4f46e5;
+  --vp-c-brand-soft: rgba(129, 140, 248, 0.16);
+}
+
+/*
+ * Keep the right-hand outline ("本页目录") visible on medium-width windows.
+ * VitePress only shows it at >= 1280px by default; here it also shows at 1024–1279px
+ * with a slightly narrower sidebar and outline so the article keeps enough room.
+ */
+@media (min-width: 1024px) and (max-width: 1279px) {
+  :root {
+    --vp-sidebar-width: 240px;
+  }
+  .VPDoc.has-aside {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+  .VPDoc.has-aside .container {
+    display: flex;
+    justify-content: center;
+  }
+  .VPDoc.has-aside .container .aside {
+    display: block;
+    max-width: 216px;
+    padding-left: 24px;
+  }
+  .VPDoc.has-aside .container .aside-container,
+  .VPDoc.has-aside .container .aside-curtain {
+    width: 192px;
+  }
+  .VPDoc.has-aside .container .content {
+    order: 1;
+    margin: 0;
+    min-width: 0;
+    padding: 0 16px 128px;
+  }
+  /* the outline is now on the right, so the top "本页目录" bar is not needed */
+  .VPLocalNav {
+    display: none !important;
+  }
+}
+
+/* WaveDrom timing diagrams (rendered as light images; inverted in dark mode) */
+.vp-doc .wavedrom {
+  margin: 16px 0;
+  padding: 16px;
+  overflow-x: auto;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 8px;
+  background: #fff;
+}
+.vp-doc .wavedrom img {
+  display: block;
+  max-width: none;
+}
+.dark .vp-doc .wavedrom {
+  background: #000;
+}
+.dark .vp-doc .wavedrom img {
+  filter: invert(1) hue-rotate(180deg);
+}
+
+/* ---------- USB packet diagrams (usbflow / usbfields) ---------- */
+:root {
+  --uf-token: #3b82f6;
+  --uf-data: #d97706;
+  --uf-ack: #059669;
+  --uf-nak: #ea580c;
+  --uf-stall: #dc2626;
+  --uf-nyet: #9333ea;
+  --uf-special: #0891b2;
+}
+.dark {
+  --uf-token: #60a5fa;
+  --uf-data: #fbbf24;
+  --uf-ack: #34d399;
+  --uf-nak: #fb923c;
+  --uf-stall: #f87171;
+  --uf-nyet: #c084fc;
+  --uf-special: #22d3ee;
+}
+.vp-doc .usbflow {
+  position: relative;
+  margin: 16px 0;
+  padding: 12px 0 16px;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 8px;
+  background: var(--vp-c-bg-soft);
+  font-size: 13px;
+}
+/* lifelines */
+.vp-doc .usbflow::before,
+.vp-doc .usbflow::after {
+  content: '';
+  position: absolute;
+  top: 44px;
+  bottom: 12px;
+  border-left: 2px dashed var(--vp-c-divider);
+}
+.vp-doc .usbflow::before { left: 56px; }
+.vp-doc .usbflow::after { right: 56px; }
+.vp-doc .uf-head {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 8px;
+  margin-bottom: 8px;
+}
+.vp-doc .uf-head span {
+  width: 96px;
+  padding: 4px 0;
+  border-radius: 6px;
+  background: var(--vp-c-bg);
+  border: 1px solid var(--vp-c-divider);
+  text-align: center;
+  font-weight: 600;
+  color: var(--vp-c-text-1);
+}
+.vp-doc .uf-group {
+  position: relative;
+  z-index: 1;
+  margin: 10px 0 2px;
+  text-align: center;
+}
+.vp-doc .uf-group span {
+  padding: 1px 10px;
+  border-radius: 999px;
+  background: var(--vp-c-default-soft);
+  color: var(--vp-c-text-2);
+  font-size: 12px;
+}
+.vp-doc .uf-row {
+  --c: var(--uf-data);
+  position: relative;
+  height: 54px;
+  margin: 0 57px;
+}
+.vp-doc .uf-token { --c: var(--uf-token); }
+.vp-doc .uf-data { --c: var(--uf-data); }
+.vp-doc .uf-ack { --c: var(--uf-ack); }
+.vp-doc .uf-nak { --c: var(--uf-nak); }
+.vp-doc .uf-stall { --c: var(--uf-stall); }
+.vp-doc .uf-nyet { --c: var(--uf-nyet); }
+.vp-doc .uf-special { --c: var(--uf-special); }
+.vp-doc .uf-line {
+  position: absolute;
+  top: 20px;
+  left: 0;
+  right: 0;
+  border-top: 2px solid var(--c);
+}
+/* arrowheads */
+.vp-doc .uf-line::after {
+  content: '';
+  position: absolute;
+  top: -7px;
+  border: 6px solid transparent;
+}
+.vp-doc .uf-h2d .uf-line::after {
+  right: -2px;
+  border-left: 10px solid var(--c);
+  border-right: 0;
+}
+.vp-doc .uf-d2h .uf-line::after {
+  left: -2px;
+  border-right: 10px solid var(--c);
+  border-left: 0;
+}
+.vp-doc .uf-pid {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 1px 10px;
+  border-radius: 6px;
+  background: var(--c);
+  color: #fff;
+  font-family: var(--vp-font-family-mono);
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.dark .vp-doc .uf-pid { color: #111; }
+.vp-doc .uf-note {
+  position: absolute;
+  top: 32px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  color: var(--vp-c-text-2);
+  font-size: 12px;
+  line-height: 1.4;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.vp-doc .uf-lost .uf-line {
+  border-top-style: dashed;
+  opacity: 0.6;
+}
+.vp-doc .uf-lost .uf-pid {
+  background: transparent;
+  border: 1.5px dashed var(--c);
+  color: var(--c);
+  text-decoration: line-through;
+}
+
+.vp-doc .usbfields {
+  margin: 16px 0;
+  padding: 12px;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 8px;
+  background: var(--vp-c-bg-soft);
+}
+.vp-doc .ufd-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.vp-doc .ufd-row + .ufd-row { margin-top: 8px; }
+.vp-doc .ufd-label {
+  flex: 0 0 64px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--vp-c-text-1);
+}
+.vp-doc .ufd-fields {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+}
+.vp-doc .ufd-field {
+  --c: var(--uf-token);
+  flex-basis: 0;
+  min-width: 0;
+  padding: 4px 2px;
+  border: 1.5px solid var(--c);
+  margin-left: -1.5px;
+  background: color-mix(in srgb, var(--c) 14%, var(--vp-c-bg));
+  text-align: center;
+  line-height: 1.25;
+}
+.vp-doc .ufd-field:first-child { border-radius: 6px 0 0 6px; margin-left: 0; }
+.vp-doc .ufd-field:last-child { border-radius: 0 6px 6px 0; }
+.vp-doc .ufd-muted { --c: var(--vp-c-text-3); }
+.vp-doc .ufd-pid { --c: var(--uf-nyet); }
+.vp-doc .ufd-crc { --c: var(--uf-ack); }
+.vp-doc .ufd-data { --c: var(--uf-data); }
+.vp-doc .ufd-name {
+  display: block;
+  font-family: var(--vp-font-family-mono);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--vp-c-text-1);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.vp-doc .ufd-size {
+  display: block;
+  font-size: 11px;
+  color: var(--vp-c-text-2);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ---------- Sidebar hierarchy ----------
+ * VitePress does not indent the items of a top-level group, so a category title,
+ * its articles and its sub-categories all line up at the same x. Indent them and
+ * draw the same guide line VitePress uses for deeper levels, and make sub-category
+ * titles bold so they read as folders rather than articles.
+ */
+.VPSidebar .VPSidebarItem.level-0 > .items {
+  border-left: 1px solid var(--vp-c-divider);
+  padding-left: 14px;
+}
+.VPSidebar .VPSidebarItem.level-1.collapsible > .item .text,
+.VPSidebar .VPSidebarItem.level-2.collapsible > .item .text {
+  font-weight: 600;
+  color: var(--vp-c-text-1);
+}

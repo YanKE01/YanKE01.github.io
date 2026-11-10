@@ -1,0 +1,17 @@
+{
+  "name": "blog",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vitepress dev docs",
+    "build": "vitepress build docs",
+    "preview": "vitepress preview docs"
+  },
+  "devDependencies": {
+    "gray-matter": "^4.0.3",
+    "json5": "^2.2.3",
+    "vitepress": "^1.6.4",
+    "vue": "^3.5.45",
+    "wavedrom": "^3.8.0"
+  }
+}
