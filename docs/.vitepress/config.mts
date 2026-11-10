@@ -58,6 +58,6 @@ export default defineConfig({
     lightModeSwitchTitle: '切换到浅色',
     darkModeSwitchTitle: '切换到深色',
 
-    // socialLinks: [{ icon: 'github', link: 'https://github.com/你的用户名' }],
+    socialLinks: [{ icon: 'github', link: 'https://github.com/YanKE01' }],
   },
 })
