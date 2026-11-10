@@ -66,6 +66,18 @@ docs/
 
 写作依据的厂商规范、数据手册和应用笔记放在仓库根目录的 `references/` 下，随仓库一起提交，但不会发布到网站上。文章在参考资料中注明出处，同时尽量附上官方链接。
 
+### 公式（LaTeX）
+
+公式用 LaTeX 书写，构建时由 MathJax 渲染。行内公式用 `$...$`，独立成行的公式用 `$$...$$`：
+
+```markdown
+位时间为 $T_{bit} = (1 + \mathrm{TSEG1} + \mathrm{TSEG2}) \times T_q$。
+
+$$
+\text{采样点} = \frac{1 + \mathrm{TSEG1}}{1 + \mathrm{TSEG1} + \mathrm{TSEG2}}
+$$
+```
+
 ### USB 包交互图
 
 用 `usbflow` 代码块画主机与设备之间的包交互，`usbfields` 画包的字段结构：
@@ -85,7 +97,14 @@ H ACK [lost] 在传输中丢失   ← [lost] 表示该包丢失（虚线）
 
 PID 会自动着色：令牌蓝、数据黄、ACK 绿、NAK 橙、STALL 红、NYET 紫、PING 青。
 
-图片放在 `docs/public/` 下，用 `![说明](/图片名.png)` 引用。
+图片放在 `docs/public/images/<分类>/<文章>/` 下，用绝对路径引用：
+
+```
+docs/public/images/robot/mujoco/onshape-to-mujoco/revolute-mate.png
+→ ![旋转配合](/images/robot/mujoco/onshape-to-mujoco/revolute-mate.png)
+```
+
+目录结构与 `docs/` 下保持一致：分类、子分类用文件夹名，文章用 Markdown 文件名，例如 `docs/peripheral/usb/eye-diagram.md` 的图片放在 `images/peripheral/usb/eye-diagram/`。路径必须以 `/images/` 开头：相对路径在抽题页中无法正确显示。截图建议用 PNG，单张尽量控制在 500 KB 以内。
 
 ## 部署到 GitHub Pages
 

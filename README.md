@@ -66,6 +66,18 @@ Notes:
 
 Vendor specifications, datasheets and application notes used as sources are kept in `references/` at the repository root and committed with the repository. They are not part of the published site. Articles cite them in their reference list; prefer linking to the official URL as well.
 
+### Formulas (LaTeX)
+
+Formulas are written in LaTeX and rendered at build time with MathJax. Use `$...$` inline and `$$...$$` for a display block:
+
+```markdown
+The bit time is $T_{bit} = (1 + \mathrm{TSEG1} + \mathrm{TSEG2}) \times T_q$.
+
+$$
+\text{sample point} = \frac{1 + \mathrm{TSEG1}}{1 + \mathrm{TSEG1} + \mathrm{TSEG2}}
+$$
+```
+
 ### USB Packet Diagrams
 
 Use a `usbflow` code block for host–device packet exchanges and `usbfields` for packet field layouts:
@@ -85,7 +97,14 @@ Token: SYNC | PID 8 | ADDR 7 | ENDP 4 | CRC5 5 | EOP
 
 PIDs are colored automatically: token blue, data amber, ACK green, NAK orange, STALL red, NYET purple, PING cyan.
 
-Put images in `docs/public/` and reference them as `![description](/image-name.png)`.
+Put images in `docs/public/images/<category>/<article>/` and reference them with an absolute path:
+
+```
+docs/public/images/robot/mujoco/onshape-to-mujoco/revolute-mate.png
+→ ![Revolute mate](/images/robot/mujoco/onshape-to-mujoco/revolute-mate.png)
+```
+
+Mirror the layout of `docs/`: folder names for categories and subcategories, the Markdown file name for the article. For example, images for `docs/peripheral/usb/eye-diagram.md` go in `images/peripheral/usb/eye-diagram/`. Always use absolute paths starting with `/images/`: relative paths do not resolve on the quiz page. Prefer PNG for screenshots and keep each file under about 500 KB.
 
 ## Deploying to GitHub Pages
 

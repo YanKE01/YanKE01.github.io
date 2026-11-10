@@ -18,6 +18,7 @@ export default defineConfig({
 
   markdown: {
     lineNumbers: true,
+    math: true,
     config(md) {
       md.use(wavedromPlugin)
       md.use(usbDiagramPlugin)
