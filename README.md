@@ -31,6 +31,8 @@ docs/
 
 ### Q&A Format (collected into the random quiz)
 
+Write notes as blog posts by default, with headings that follow the flow of the article. Add Q&A only for points that are useful to review on their own.
+
 ```markdown
 ## Q: Write the question here?
 
