@@ -1,21 +1,21 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useData } from 'vitepress'
-import { data as posts } from '../../../posts.data'
+import { data } from '../../../posts.data'
 
 const { page } = useData()
 
 // Show date and category above the article title.
 const post = computed(() => {
   const url = '/' + page.value.relativePath.replace(/\.md$/, '')
-  return posts.find((p) => p.url === url)
+  return data.posts.find((p) => p.url === url)
 })
 </script>
 
 <template>
   <div v-if="post" class="post-meta">
     <time v-if="post.date">{{ post.date }}</time>
-    <span class="cat">{{ post.category }}</span>
+    <span class="cat">{{ post.categoryLabel }}</span>
   </div>
 </template>
 

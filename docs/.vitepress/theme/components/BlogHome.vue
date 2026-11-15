@@ -1,24 +1,29 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import { useData, withBase } from 'vitepress'
-import { data as posts } from '../../../posts.data'
+import { data, type Category } from '../../../posts.data'
 import { data as questions } from '../../../quiz.data'
+import BlogCategories from './BlogCategories.vue'
 
 const { site, theme } = useData()
+const { posts, categories } = data
+const navigation: Category[] = [
+  { id: '', title: '全部文章', count: posts.length, children: [] },
+  ...categories,
+]
 
 // Optional cover image: set `themeConfig.cover` in config.mts (e.g. '/cover.jpg' in docs/public/)
 const coverStyle = computed(() =>
   theme.value.cover ? { backgroundImage: `url(${withBase(theme.value.cover)})` } : undefined,
 )
 
-const categories = computed(() => {
-  const m = new Map<string, number>()
-  for (const p of posts) m.set(p.category, (m.get(p.category) ?? 0) + 1)
-  return [...m.entries()]
+const active = ref('')
+const list = computed(() => {
+  const category = active.value
+  return category
+    ? posts.filter((post) => post.categoryId === category || post.categoryId.startsWith(category + '/'))
+    : posts
 })
-
-const active = ref<string | null>(null)
-const list = computed(() => (active.value ? posts.filter((p) => p.category === active.value) : posts))
 </script>
 
 <template>
@@ -36,28 +41,30 @@ const list = computed(() => (active.value ? posts.filter((p) => p.category === a
   </header>
 
   <div class="blog">
-
-    <nav class="cats">
-      <button :class="{ on: !active }" @click="active = null">全部</button>
-      <button v-for="[c, n] in categories" :key="c" :class="{ on: active === c }" @click="active = c">
-        {{ c }}<span>{{ n }}</span>
-      </button>
+    <nav class="category-nav" aria-labelledby="blog-category-title">
+      <h2 id="blog-category-title">快速导航</h2>
+      <BlogCategories
+        :categories="navigation"
+        :active="active"
+        @select="active = $event"
+      />
     </nav>
 
-    <ul class="posts">
-      <li v-for="p in list" :key="p.url">
-        <a :href="withBase(p.url)" class="post">
-          <div class="meta">
-            <time v-if="p.date">{{ p.date }}</time>
-            <span class="cat">{{ p.category }}</span>
-          </div>
-          <h2>{{ p.title }}</h2>
-          <p v-if="p.summary" class="summary">{{ p.summary }}</p>
-        </a>
-      </li>
-    </ul>
-
-    <p v-if="!list.length" class="empty">暂无文章。</p>
+    <div class="articles">
+      <ul class="posts">
+        <li v-for="p in list" :key="p.url">
+          <a :href="withBase(p.url)" class="post">
+            <div class="meta">
+              <time v-if="p.date">{{ p.date }}</time>
+              <span class="cat">{{ p.categoryLabel }}</span>
+            </div>
+            <h2>{{ p.title }}</h2>
+            <p v-if="p.summary" class="summary">{{ p.summary }}</p>
+          </a>
+        </li>
+      </ul>
+      <p v-if="!list.length" class="empty">暂无文章。</p>
+    </div>
   </div>
 </template>
 
@@ -105,7 +112,7 @@ const list = computed(() => (active.value ? posts.filter((p) => p.category === a
 }
 .cover-inner {
   position: relative;
-  max-width: 760px;
+  max-width: 1040px;
   margin: 0 auto;
   padding: 96px 24px 72px;
 }
@@ -157,36 +164,26 @@ const list = computed(() => (active.value ? posts.filter((p) => p.category === a
   color: #fff;
 }
 .blog {
-  max-width: 760px;
+  display: grid;
+  grid-template-columns: 196px minmax(0, 1fr);
+  align-items: start;
+  gap: 40px;
+  max-width: 1040px;
   margin: 0 auto;
-  padding: 0 24px 96px;
+  padding: 28px 24px 96px;
 }
-.cats {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin: 32px 0 8px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid var(--vp-c-divider);
+.category-nav {
+  position: sticky;
+  top: calc(var(--vp-nav-height) + 16px);
+  max-height: calc(100dvh - var(--vp-nav-height) - 32px);
+  overflow: auto;
+  padding: 8px 12px 8px 0;
+  border-right: 1px solid var(--vp-c-divider);
 }
-.cats button {
-  padding: 4px 12px;
-  border-radius: 999px;
+.category-nav h2 {
+  margin: 0 10px 8px;
   font-size: 14px;
-  color: var(--vp-c-text-2);
-  transition: all 0.2s;
-}
-.cats button:hover {
-  color: var(--vp-c-brand-1);
-}
-.cats button.on {
-  background: var(--vp-c-brand-soft);
-  color: var(--vp-c-brand-1);
-}
-.cats span {
-  margin-left: 4px;
-  font-size: 12px;
-  opacity: 0.6;
+  font-weight: 600;
 }
 .posts {
   list-style: none;
@@ -201,7 +198,8 @@ const list = computed(() => (active.value ? posts.filter((p) => p.category === a
 }
 .meta {
   display: flex;
-  gap: 12px;
+  flex-wrap: wrap;
+  gap: 2px 12px;
   font-size: 13px;
   color: var(--vp-c-text-3);
 }
@@ -232,6 +230,19 @@ const list = computed(() => (active.value ? posts.filter((p) => p.category === a
   padding: 40px 0;
   color: var(--vp-c-text-3);
 }
+@media (max-width: 720px) {
+  .blog {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+  }
+  .category-nav {
+    position: static;
+    max-height: 240px;
+    padding: 0 8px 12px 0;
+    border-right: 0;
+    border-bottom: 1px solid var(--vp-c-divider);
+  }
+}
 @media (max-width: 640px) {
   .cover-inner {
     padding: 64px 16px 48px;
@@ -243,7 +254,7 @@ const list = computed(() => (active.value ? posts.filter((p) => p.category === a
     font-size: 16px;
   }
   .blog {
-    padding: 0 16px 64px;
+    padding: 20px 16px 64px;
   }
 }
 </style>
