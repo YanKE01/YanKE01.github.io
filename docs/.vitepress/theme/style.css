@@ -352,7 +352,8 @@
 .vp-doc .usbeye .ue-esd + .ue-btext { font-size: 10px; }
 
 /* 网络分层示意图（docs/network） */
-.vp-doc .netlayers {
+.vp-doc .netlayers,
+.vp-doc .irspec {
   margin: 16px 0;
   padding: 12px;
   border: 1px solid var(--vp-c-divider);
@@ -360,7 +361,8 @@
   background: var(--vp-c-bg-soft);
   overflow-x: auto;
 }
-.vp-doc .netlayers svg {
+.vp-doc .netlayers svg,
+.vp-doc .irspec svg {
   display: block;
   width: 100%;
   min-width: 560px;
@@ -504,3 +506,14 @@
     color: var(--shiki-light, inherit);
   }
 }
+
+/* 光谱示意图（docs/camera） */
+.vp-doc .irspec .sp-text { fill: var(--vp-c-text-1); font-size: 14px; font-weight: 700; }
+.vp-doc .irspec .sp-small { fill: var(--vp-c-text-2); font-size: 12px; }
+.vp-doc .irspec .sp-axis { stroke: var(--vp-c-text-3); stroke-width: 1; }
+.vp-doc .irspec .sp-bracket { fill: none; stroke: var(--vp-c-text-2); stroke-width: 1.5; }
+.vp-doc .irspec .sp-mark { stroke: var(--vp-c-danger-1); stroke-width: 2; stroke-dasharray: 4 3; }
+.vp-doc .irspec .sp-key { fill: var(--vp-c-danger-1); font-size: 14px; font-weight: 700; }
+.vp-doc .irspec .sp-sensor { fill: var(--vp-c-brand-soft); stroke: var(--vp-c-brand-1); stroke-width: 1.5; }
+.vp-doc .irspec .sp-ircut { fill: var(--vp-c-success-soft); stroke: var(--vp-c-success-1); stroke-width: 1.5; }
+.vp-doc .irspec .sp-block { fill: var(--vp-c-default-soft); stroke: var(--vp-c-text-3); stroke-width: 1; stroke-dasharray: 4 3; }
