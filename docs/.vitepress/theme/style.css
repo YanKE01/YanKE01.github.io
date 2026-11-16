@@ -377,3 +377,130 @@
 .vp-doc .netlayers .nl-arrow { fill: var(--vp-c-text-2); }
 .vp-doc .netlayers .nl-key { fill: var(--vp-c-brand-1); font-size: 15px; font-weight: 700; }
 .vp-doc .netlayers .nl-small { fill: var(--vp-c-text-2); font-size: 13px; }
+
+
+/* Article layout for the browser's PDF export. */
+@page blog-post {
+  size: A4;
+  margin: 16mm;
+}
+
+@media print {
+  body:has(.export-pdf) {
+    page: blog-post;
+    color-scheme: light;
+    background: #fff;
+  }
+
+  body:has(.export-pdf) .Layout {
+    --vp-c-bg: #fff;
+    --vp-c-bg-soft: #f6f7f9;
+    --vp-c-divider: #d0d5dd;
+    --vp-c-text-1: #1f2328;
+    --vp-c-text-2: #394350;
+    --vp-c-text-3: #53606e;
+    --vp-c-brand-1: #3730a3;
+    --vp-c-default-soft: #edf0f5;
+    --vp-code-color: #24292f;
+    --vp-code-block-bg: #f6f7f9;
+    --vp-code-block-color: #24292f;
+    --vp-code-font-size: 9pt;
+
+    display: block;
+    min-height: 0;
+    color: var(--vp-c-text-1);
+    background: #fff;
+  }
+
+  .Layout:has(.export-pdf) :is(
+    .VPNav, .VPLocalNav, .VPSidebar, .VPSkipLink, .VPBackdrop, .VPFooter,
+    .VPDoc .aside, .VPDocFooter, .export-pdf, .header-anchor,
+    .vp-doc button.copy, .vp-doc .line-numbers-wrapper
+  ) {
+    display: none !important;
+  }
+
+  body:has(.export-pdf) .Layout :is(
+    .VPContent, .VPDoc, .VPDoc .container, .VPDoc .content, .VPDoc .content-container
+  ) {
+    display: block;
+    width: auto;
+    min-width: 0;
+    max-width: none;
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+  }
+
+  .Layout:has(.export-pdf) .vp-doc {
+    overflow-wrap: anywhere;
+  }
+
+  .Layout:has(.export-pdf) .vp-doc :is(h1, h2, h3, h4, h5, h6) {
+    break-after: avoid;
+  }
+
+  .Layout:has(.export-pdf) .vp-doc :is(p, li) {
+    orphans: 3;
+    widows: 3;
+  }
+
+  .Layout:has(.export-pdf) .vp-doc table {
+    display: table;
+    max-width: 100%;
+  }
+
+  .Layout:has(.export-pdf) .vp-doc :is(th, td) {
+    padding: 4px 8px;
+  }
+
+  .Layout:has(.export-pdf) .vp-doc :is(tr, img, .wavedrom, .usbeye, .netlayers, .uf-row, .ufd-row, .uf-head, .uf-group) {
+    break-inside: avoid;
+  }
+
+  .Layout:has(.export-pdf) .vp-doc :is(img, svg) {
+    min-width: 0;
+    max-width: 100%;
+    height: auto;
+  }
+
+  .Layout:has(.export-pdf) .vp-doc img {
+    max-height: 245mm;
+    object-fit: contain;
+  }
+
+  .Layout:has(.export-pdf) .vp-doc .wavedrom {
+    background: #fff;
+  }
+
+  .Layout:has(.export-pdf) .vp-doc .wavedrom img {
+    filter: none;
+  }
+
+  .Layout:has(.export-pdf) .vp-doc .uf-pid {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  .Layout:has(.export-pdf) .vp-doc div[class*='language-'] {
+    margin-right: 0;
+    margin-left: 0;
+    padding-left: 0;
+    overflow: visible;
+  }
+
+  .Layout:has(.export-pdf) .vp-doc pre {
+    overflow: visible;
+  }
+
+  .Layout:has(.export-pdf) .vp-doc pre code {
+    width: auto;
+    padding-inline: 12px;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+
+  .Layout:has(.export-pdf) .vp-doc pre code [style*='--shiki-light'] {
+    color: var(--shiki-light, inherit);
+  }
+}
