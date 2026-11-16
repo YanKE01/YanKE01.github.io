@@ -350,3 +350,30 @@
 .vp-doc .usbeye .ue-rx-text { fill: var(--ue-rx); font-size: 12px; font-weight: 600; }
 .vp-doc .usbeye .ue-esd { fill: var(--vp-c-bg-soft); stroke: var(--vp-c-text-3); stroke-width: 1.2; }
 .vp-doc .usbeye .ue-esd + .ue-btext { font-size: 10px; }
+
+/* 网络分层示意图（docs/network） */
+.vp-doc .netlayers {
+  margin: 16px 0;
+  padding: 12px;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 8px;
+  background: var(--vp-c-bg-soft);
+  overflow-x: auto;
+}
+.vp-doc .netlayers svg {
+  display: block;
+  width: 100%;
+  min-width: 560px;
+  height: auto;
+  font-family: var(--vp-font-family-base);
+}
+.vp-doc .netlayers .nl-frame { fill: none; stroke: var(--vp-c-text-3); stroke-width: 1; stroke-dasharray: 5 4; }
+.vp-doc .netlayers .nl-p4 { fill: var(--vp-c-brand-soft); stroke: var(--vp-c-brand-1); stroke-width: 1.5; }
+.vp-doc .netlayers .nl-c6 { fill: var(--vp-c-success-soft); stroke: var(--vp-c-success-1); stroke-width: 1.5; }
+.vp-doc .netlayers .nl-title { fill: var(--vp-c-text-1); font-size: 16px; font-weight: 700; }
+.vp-doc .netlayers .nl-name { fill: var(--vp-c-text-1); font-size: 15px; font-weight: 700; }
+.vp-doc .netlayers .nl-detail { fill: var(--vp-c-text-2); font-size: 14px; }
+.vp-doc .netlayers .nl-link { fill: none; stroke: var(--vp-c-text-2); stroke-width: 2; }
+.vp-doc .netlayers .nl-arrow { fill: var(--vp-c-text-2); }
+.vp-doc .netlayers .nl-key { fill: var(--vp-c-brand-1); font-size: 15px; font-weight: 700; }
+.vp-doc .netlayers .nl-small { fill: var(--vp-c-text-2); font-size: 13px; }
