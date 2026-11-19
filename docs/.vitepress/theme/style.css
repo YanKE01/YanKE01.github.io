@@ -353,7 +353,9 @@
 
 /* 网络分层示意图（docs/network） */
 .vp-doc .netlayers,
-.vp-doc .irspec {
+.vp-doc .irspec,
+.vp-doc .awbplot,
+.vp-doc .usbline {
   margin: 16px 0;
   padding: 12px;
   border: 1px solid var(--vp-c-divider);
@@ -362,7 +364,9 @@
   overflow-x: auto;
 }
 .vp-doc .netlayers svg,
-.vp-doc .irspec svg {
+.vp-doc .irspec svg,
+.vp-doc .awbplot svg,
+.vp-doc .usbline svg {
   display: block;
   width: 100%;
   min-width: 560px;
@@ -517,3 +521,28 @@
 .vp-doc .irspec .sp-sensor { fill: var(--vp-c-brand-soft); stroke: var(--vp-c-brand-1); stroke-width: 1.5; }
 .vp-doc .irspec .sp-ircut { fill: var(--vp-c-success-soft); stroke: var(--vp-c-success-1); stroke-width: 1.5; }
 .vp-doc .irspec .sp-block { fill: var(--vp-c-default-soft); stroke: var(--vp-c-text-3); stroke-width: 1; stroke-dasharray: 4 3; }
+
+/* AWB 偏差示意图（docs/camera/golden-limit-sample） */
+.vp-doc .awbplot .aw-axis { stroke: var(--vp-c-text-2); stroke-width: 1.5; }
+.vp-doc .awbplot .aw-axis-head { fill: var(--vp-c-text-2); }
+.vp-doc .awbplot .aw-text { fill: var(--vp-c-text-1); font-size: 14px; font-weight: 700; }
+.vp-doc .awbplot .aw-small { fill: var(--vp-c-text-2); font-size: 12px; }
+.vp-doc .awbplot .aw-box { fill: var(--vp-c-success-soft); stroke: var(--vp-c-success-1); stroke-width: 1.5; stroke-dasharray: 6 4; }
+.vp-doc .awbplot .aw-mod { fill: var(--vp-c-text-3); }
+.vp-doc .awbplot .aw-mod-hl { fill: var(--vp-c-text-3); stroke: var(--vp-c-brand-1); stroke-width: 2; }
+.vp-doc .awbplot .aw-limit { fill: var(--vp-c-bg); stroke: var(--vp-c-success-1); stroke-width: 2; }
+.vp-doc .awbplot .aw-golden { fill: var(--vp-c-brand-1); }
+.vp-doc .awbplot .aw-key { fill: var(--vp-c-brand-1); font-size: 14px; font-weight: 700; }
+.vp-doc .awbplot .aw-otp { fill: none; stroke: var(--vp-c-brand-1); stroke-width: 2; stroke-dasharray: 5 3; }
+.vp-doc .awbplot .aw-otp-head { fill: var(--vp-c-brand-1); }
+.vp-doc .awbplot .aw-bad { stroke: var(--vp-c-danger-1); stroke-width: 2.5; }
+.vp-doc .awbplot .aw-bad-text { fill: var(--vp-c-danger-1); font-size: 14px; font-weight: 700; }
+
+/* USB 线路状态波形（docs/peripheral/usb/line-states） */
+.vp-doc .usbline .ul-wave { fill: none; stroke: var(--vp-c-brand-1); stroke-width: 2; }
+.vp-doc .usbline .ul-se0 { fill: var(--vp-c-danger-soft); }
+.vp-doc .usbline .ul-bracket { fill: none; stroke: var(--vp-c-text-2); stroke-width: 1.5; }
+.vp-doc .usbline .ul-text { fill: var(--vp-c-text-1); font-size: 14px; font-weight: 700; }
+.vp-doc .usbline .ul-name { fill: var(--vp-c-text-1); font-size: 16px; font-weight: 700; }
+.vp-doc .usbline .ul-small { fill: var(--vp-c-text-2); font-size: 12px; }
+.vp-doc .usbline .ul-key { fill: var(--vp-c-danger-1); font-size: 14px; font-weight: 700; }
