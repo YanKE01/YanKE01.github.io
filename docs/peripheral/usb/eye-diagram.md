@@ -1,10 +1,10 @@
 ---
-title: USB 高速眼图
+title: 7. USB 高速眼图
 date: 2026-11-10
-order: 4
+order: 7
 ---
 
-# USB 高速眼图
+# 7. USB 高速眼图
 
 做 USB 2.0 高速（High-Speed，480 Mbit/s）硬件时，信号质量通常用**眼图**来评估。本文以 Microchip USB3250 数据手册（DS00002142A）第 6.2 节引用的 USB 2.0 规范眼图模板为例，解释眼图上的 Level 1、Level 2 和 Point 1～6 各代表什么，以及怎样读懂一张眼图。
 
