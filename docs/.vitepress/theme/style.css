@@ -98,6 +98,14 @@
   width: 3px;
   background: var(--ind-accent);
 }
+/* 长标题换行显示，不再被省略号截断（单行高度仍为 32px，与高亮标记对齐） */
+.VPDocAsideOutline .VPDocOutlineItem .outline-link {
+  white-space: normal;
+  overflow: visible;
+  text-overflow: clip;
+  line-height: 20px;
+  padding: 6px 0;
+}
 
 /* ---------- 正文 ---------- */
 .vp-doc h1 {
