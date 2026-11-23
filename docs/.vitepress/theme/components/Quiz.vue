@@ -215,7 +215,7 @@ onUnmounted(() => window.removeEventListener('keydown', onKey))
 .btn.primary {
   border-color: var(--vp-c-brand-1);
   background: var(--vp-c-brand-1);
-  color: var(--vp-c-white);
+  color: var(--vp-button-brand-text);
 }
 .btn.primary:hover {
   background: var(--vp-c-brand-2);
