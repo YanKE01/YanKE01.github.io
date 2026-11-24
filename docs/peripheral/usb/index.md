@@ -17,3 +17,5 @@ order: 2
 | 6 | [USB 线路状态](/peripheral/usb/line-states) | J/K/SE0、复位、挂起、恢复 |
 | 7 | [USB 高速眼图](/peripheral/usb/eye-diagram) | 高速信号质量测试 |
 | 8 | [USB 设备判断主机操作系统](/peripheral/usb/os-detect) | 综合应用：通过枚举行为判断主机系统 |
+| 9 | [USB 网卡：ECM、NCM 与 RNDIS](/peripheral/usb/cdc-network) | CDC 与 ECM / NCM / RNDIS 的关系、描述符、设备端网络协议栈 |
+| 10 | [CDC 接收与 ZLP](/peripheral/usb/cdc-rx-zlp) | CFG_TUD_CDC_RX_NEED_ZLP：多包接收提速与 ZLP 卡死问题 |
