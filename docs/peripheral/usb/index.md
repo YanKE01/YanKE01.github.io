@@ -19,3 +19,4 @@ order: 2
 | 8 | [USB 设备判断主机操作系统](/peripheral/usb/os-detect) | 综合应用：通过枚举行为判断主机系统 |
 | 9 | [USB 网卡：ECM、NCM 与 RNDIS](/peripheral/usb/cdc-network) | CDC 与 ECM / NCM / RNDIS 的关系、描述符、设备端网络协议栈 |
 | 10 | [CDC 接收与 ZLP](/peripheral/usb/cdc-rx-zlp) | CFG_TUD_CDC_RX_NEED_ZLP：多包接收提速与 ZLP 卡死问题 |
+| 11 | [高速中断端点的 bInterval](/peripheral/usb/binterval) | 高速下 bInterval 是指数，全速描述符搬到高速的坑 |

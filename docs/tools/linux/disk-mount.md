@@ -51,9 +51,33 @@ du -h --max-depth=1 ~ | sort -h         # 查看家目录下各目录的大小
 | 旧版本的 snap | `snap list --all` 中标记为 disabled 的版本，用 `sudo snap remove <名称> --revision=<版本号>` 删除 |
 | Docker 镜像和缓存 | `docker system prune` |
 | pip / conda 缓存 | `pip cache purge`、`conda clean --all` |
+| uv 缓存 | `uv cache prune` 或 `uv cache clean`，见下一节 |
 | 编译产物 | 各工程的 `build/` 目录，如 ESP-IDF 工程执行 `idf.py fullclean` |
 
-清理后如果空间仍然不够，可以加一块硬盘，见下一节。
+清理后如果空间仍然不够，可以加一块硬盘，见最后一节。
+
+## Q: uv 的缓存在哪里，怎么清理？
+
+uv 下载的包、构建好的 wheel 都放在缓存里，用久了能涨到几十 GB。相关目录：
+
+| 内容 | 默认路径 | 查看命令 |
+|---|---|---|
+| 包缓存 | `~/.cache/uv` | `uv cache dir`、`uv cache size` |
+| uv 管理的 Python | `~/.local/share/uv/python` | `uv python dir` |
+| `uv tool` 安装的工具 | `~/.local/share/uv/tools` | `uv tool dir` |
+
+清理命令：
+
+```bash
+uv cache prune          # 只删没有被引用的旧条目，比较安全
+uv cache clean          # 清空整个缓存
+uv cache clean numpy    # 只清某个包
+uv python uninstall 3.10  # 卸载不用的 Python 版本
+```
+
+- 清空缓存不会破坏已有的虚拟环境，之后再安装时会重新下载；
+- Linux 上 uv 默认把缓存里的文件**硬链接**到各个 `.venv`，所以 `du` 看到的缓存大小里有一部分和虚拟环境共用，清掉后实际释放的空间可能比显示的少；
+- 想把缓存放到别的盘，设置环境变量 `UV_CACHE_DIR`。缓存和项目最好在同一个文件系统上，否则不能硬链接，只能复制。
 
 ## Q: 家目录满了，能迁移到另一块硬盘吗？
 
